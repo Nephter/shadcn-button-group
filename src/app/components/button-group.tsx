@@ -5,25 +5,19 @@ export const ButtonGroup = ({
   children,
   className,
   variant = "outlined",
-  size = "large",
+  size = "small",
   orientation = "horizontal",
 }: {
   children: ReactNode,
   className?: string,
-  variant?: "contained" | "outlined" | "text",
+  variant?: "contained" | "outlined",
   size?: "small" | "medium" | "large",
   orientation?: "horizontal" | "vertical",
 }) => {
   const buttons = React.Children.toArray(children);
 
   return (
-    <div
-      className={clsx(
-        "flex",
-        orientation === "horizontal" ? "flex-row" : "flex-col",
-        className
-      )}
-    >
+    <div className={clsx("flex items-center", className)}>
       {buttons.map((button, index) => {
         // ---------FIRST BUTTON----------------
         if (index === 0) {
@@ -31,22 +25,16 @@ export const ButtonGroup = ({
             <div key={index} className="flex items-stretch">
               <div
                 className={clsx(
-                  "flex items-center px-3 py-2 transition-all duration-200 ease-out",
+                  "flex items-center px-3 py-2 bg-primary rounded-l-md shadow transition-all duration-300 ease-in-out",
                   size === "small" ? "px-2 py-1" : size === "large" ? "px-4 py-2.5" : "text-base",
                   variant === "contained"
-                    ? "bg-primary text-white hover:bg-primary/90 shadow"
-                    : variant === "outlined"
-                      ? "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary-foreground"
-                      : "bg-transparent text-primary border-none hover:text-primary/70", // For text variant
-                  orientation === "horizontal" ? "rounded-l-md -mr-[2px]" : "rounded-t-md -mb-[1px]"
+                    ? "bg-primary text-white hover:bg-primary/80"
+                    : "bg-transparent text-primary border border-primary/50 -mr-[1px] hover:border-primary hover:z-20 hover:bg-primary/10"
                 )}
               >
                 {button}
               </div>
-              {variant === "contained" || "text" && orientation === "horizontal"
-                ? <div className={`h-full w-[1px] ${orientation === "horizontal" ? "" : 'bg-primary'}`} />
-                : null
-              }
+              {variant === "contained" ? <div className="h-auto w-[1px]" /> : null}
             </div>
           );
         }
@@ -56,14 +44,11 @@ export const ButtonGroup = ({
           return (
             <div key={index}
               className={clsx(
-                "px-3 py-2 transition-all duration-200 ease-out",
+                "px-3 py-2 bg-primary rounded-r-md shadow transition-all duration-300 ease-in-out",
                 size === "small" ? "px-2 py-1" : size === "large" ? "px-4 py-2.5" : "text-base",
                 variant === "contained"
-                  ? "bg-primary text-white hover:bg-primary/90 shadow"
-                  : variant === "outlined"
-                    ? "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary-foreground"
-                    : "bg-transparent text-primary border-none hover:text-primary/70", // For text variant
-                orientation === "horizontal" ? "rounded-r-md" : "rounded-b-md"
+                  ? "bg-primary text-white hover:bg-primary/80"
+                  : "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10"
               )}
             >
               {button}
@@ -76,23 +61,16 @@ export const ButtonGroup = ({
           <div key={index} className="flex items-stretch">
             <div
               className={clsx(
-                "flex items-center px-3 py-2 transition-all duration-200 ease-out",
+                "flex items-center px-3 py-2 bg-primary z-0 shadow transition-all duration-300 ease-in-out",
                 size === "small" ? "px-2 py-1" : size === "large" ? "px-4 py-2.5" : "text-base",
                 variant === "contained"
-                  ? "bg-primary text-white hover:bg-primary/90 shadow"
-                  : variant === "outlined"
-                    ? "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary-foreground"
-                    : "bg-transparent text-primary border-none hover:text-primary/70", // For text variant
-                orientation === "horizontal" ? "-mr-[2px]" : "-mb-[1px]"
+                  ? "bg-primary text-white  hover:bg-primary/80"
+                  : "bg-transparent text-primary border border-primary/50 -mr-[1px] hover:border-primary hover:z-20 hover:bg-primary/10"
               )}
             >
               {button}
             </div>
-
-            {variant === "contained" || "text" && orientation === "horizontal"
-              ? <div className={`h-full w-[1px] ${orientation === "horizontal" ? "" : 'bg-primary'}`} />
-              : null
-            }
+            {variant === "contained" ? <div className="h-full w-[1px]" /> : null}
           </div>
         );
       })}
@@ -103,7 +81,7 @@ export const ButtonGroup = ({
 // Button component
 export const Button = ({ children, className }: { children: ReactNode, className?: string }) => {
   return (
-    <div className={clsx("-mx-4 -my-2 px-4 py-2 cursor-pointer hover:bg-secondary/70 hover:text-primary", className)}>
+    <div className={clsx("-mx-4 -my-2 px-4 py-2 cursor-pointer ", className)}>
       {children}
     </div>
   );
