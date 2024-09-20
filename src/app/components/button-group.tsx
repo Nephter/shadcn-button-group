@@ -4,13 +4,13 @@ import clsx from 'clsx';
 export const ButtonGroup = ({
   children,
   className,
-  variant = "outlined",
-  size = "small",
-  orientation = "vertical", // Added orientation prop
+  variant = "text",
+  size = "large",
+  orientation = "horizontal", // Added orientation prop
 }: {
   children: ReactNode,
   className?: string,
-  variant?: "contained" | "outlined",
+  variant?: "contained" | "outlined" | "text",
   size?: "small" | "medium" | "large",
   orientation?: "horizontal" | "vertical",
 }) => {
@@ -39,8 +39,10 @@ export const ButtonGroup = ({
                   size === "small" ? "px-2 py-1" : size === "large" ? "px-4 py-2.5" : "px-3 py-2",
                   variant === "contained"
                     ? "bg-primary text-white hover:bg-primary/80 shadow"
-                    : "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10",
-                  orientation === "horizontal" ? "rounded-l-md -mr-[1px]" : "rounded-t-md -mb-[1px]" // Horizontal vs. Vertical changes
+                    : variant === "outlined" ?
+                      "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10"
+                      : "bg-transparent text-primary hover:z-20 hover:bg-primary/10",
+                  orientation === "horizontal" ? "rounded-l-md -mr-[1px]" : "rounded-t-md -mb-[1px]"
                 )}
               >
                 {button}
@@ -50,7 +52,13 @@ export const ButtonGroup = ({
                   "bg-secondary",
                   orientation === "horizontal" ? "h-auto w-[1px] " : "w-full h-[1px] "
                 )} />
-              ) : null}
+              ) :
+                variant === "text" ?
+                  <div className={clsx(
+                    "bg-primary",
+                    orientation === "horizontal" ? "h-auto w-[1px] " : "w-full h-[1px] "
+                  )} />
+                  : null}
             </div>
           );
         }
@@ -64,7 +72,8 @@ export const ButtonGroup = ({
                 size === "small" ? "px-2 py-1" : size === "large" ? "px-4 py-2.5" : "px-3 py-2",
                 variant === "contained"
                   ? "bg-primary text-white hover:bg-primary/80 shadow"
-                  : "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10",
+                  : variant === "outlined" ? "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10"
+                    : "bg-transparent text-primary hover:z-20 hover:bg-primary/10",
                 orientation === "horizontal" ? "rounded-r-md" : "rounded-b-md"
               )}
             >
@@ -85,8 +94,9 @@ export const ButtonGroup = ({
                 size === "small" ? "px-2 py-1" : size === "large" ? "px-4 py-2.5" : "px-3 py-2",
                 variant === "contained"
                   ? "bg-primary text-white hover:bg-primary/80 shadow"
-                  : "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10",
-                orientation === "horizontal" ? "-mr-[1px]" : "-mb-[1px]" // Margin adjustment based on orientation
+                  : variant === "outlined" ? "bg-transparent text-primary border border-primary/50 hover:border-primary hover:z-20 hover:bg-primary/10"
+                    : "bg-transparent text-primary hover:z-20 hover:bg-primary/10",
+                orientation === "horizontal" ? "-mr-[1px]" : "-mb-[1px]"
               )}
             >
               {button}
@@ -94,9 +104,15 @@ export const ButtonGroup = ({
             {variant === "contained" ? (
               <div className={clsx(
                 "bg-secondary",
-                orientation === "horizontal" ? "h-full w-[1px]" : "w-full h-[1px]"
+                orientation === "horizontal" ? "h-auto w-[1px] " : "w-full h-[1px] "
               )} />
-            ) : null}
+            ) :
+              variant === "text" ?
+                <div className={clsx(
+                  "bg-primary",
+                  orientation === "horizontal" ? "h-auto w-[1px] " : "w-full h-[1px] "
+                )} />
+                : null}
           </div>
         );
       })}
@@ -104,7 +120,6 @@ export const ButtonGroup = ({
   );
 };
 
-// Button component
 export const Button = ({ children, className }: { children: ReactNode, className?: string }) => {
   return (
     <div className={clsx("-mx-4 -my-2 px-4 py-2 cursor-pointer", className)}>
